@@ -48,6 +48,18 @@ function adaptMargin(){
     }
 }
 
+
+// Adjust inner div height for IE7
+function adjustHeight(){
+    var ths = document.getElementsByTagName("th");
+    if(ths.length > 0){
+        var thHeight = ths[0].offsetHeight + "px";
+        for(var i = 0; i < ths.length; i++){
+            ths[i].children[0].children[0].style.setAttribute("height", thHeight);
+        }
+    }
+}
+
 var browserInfo = get_browser_info();
 
 // Fallback for oldest and weirdest
@@ -62,6 +74,12 @@ case "Opera":
     // Opera 11.5 starts using 2D Transforms
     if(browserInfo.version < 11.5){
         verticalSplit();
+    }
+    break;
+case "MSIE":
+    // IE7 inner div height adjustment
+    if(browserInfo.version == 7){
+        adjustHeight();
     }
     break;
 default:
