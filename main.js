@@ -89,13 +89,16 @@ function adjustTh(){
     if(ths.length > 0){
         var thHeight = ths[0].offsetHeight + "px";
         for(var i = 0; i < ths.length; i++){
-            if(true){
+            if(ths[i].getElementsByClassName){
                 var rd = ths[i].getElementsByClassName("rotate-demo")[0];
                 ths[i].setAttribute("style",
                                     "height:" + rd.offsetWidth + "px;" +
                                     "width:" + rd.offsetHeight + "px;"
                                    );
             } else {
+                // IE7 needs adjusting inner div height
+                ths[i].children[0].children[0].style.setAttribute("height", thHeight);
+                ths[i].style.setAttribute("width", thHeight + "px;");
                 ths[i].setAttribute("style",
                                     "height:" + ths[i].children[0].children[0].offsetWidth + "px;" +
                                     "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
