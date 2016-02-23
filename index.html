@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+         table, th, td {
+             border: 1px solid black;
+             border-collapse: collapse;
+         }
+         th, td {
+             padding: 10px;
+             text-align: left;
+         }
+         thead th {
+             text-align: center;
+         }
+         .rotate-90 {
+             white-space: nowrap;
+             margin: 0px auto;
+         }
+         .rotate-90 .rotate-demo:before {
+             content:'';
+             padding-top:110%;
+             display:inline-block;
+             vertical-align:middle;
+         }
+         .rotate-90 .rotate-demo {
+             -ms-transform: rotate(90deg);
+             -moz-transform: rotate(90deg);
+             -o-transform: rotate(90deg);
+             -webkit-transform: rotate(90deg);
+             transform: rotate(90deg);
+             display: inline-block;
+         }
+         .writing-tbrl { -webkit-writing-mode: tb-rl }
+
+        </style>
+        <!--[if lte IE 8]>
+        <style>
+        .rotate-90 .rotate-demo:before {
+        padding-top:0%;
+        }
+        .writing-tbrl { writing-mode: tb-rl }
+        .rotate-90 {
+        position: relative;
+        padding-top: 0px;
+        }
+        </style>
+        <![endif]-->
+        <!--[if IE 7]>
+        <style>
+        .rotate-container {
+            margin: 0px auto;
+            position: relative;
+        }
+        .rotate-demo {
+            text-align: center;
+            zoom: 1;
+        }
+        </style>
+        <![endif]-->
+        <!--[if lte IE 7]>
+        <style>
+        th {
+             border-top: 0px;
+             border-right: 0px;
+             border-bottom: 0px;
+         }
+         th:first-child, th.first {
+             border-left: 0px;
+         }
+        </style>
+        <![endif]-->
+    </head>
+    <body>
+
+        <h2>Vertical Headings:</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="rotate-90 first">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Very Long Header
+                            </div>
+                        </div>
+                    </th>
+                    <th class="rotate-90">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Header
+                            </div>
+                        </div>
+                    </th>
+                    <th class="rotate-90">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Header
+                            </div>
+                        </div>
+                    </th>
+                    <th class="rotate-90">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Header
+                            </div>
+                        </div>
+                    </th>
+                    <th class="rotate-90">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Header
+                            </div>
+                        </div>
+                    </th>
+                    <th class="rotate-90">
+                        <div class="rotate-container">
+                            <div class="rotate-demo writing-tbrl">
+                                Header
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>123</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+            </tbody>
+        </table>
+        <script type="text/javascript">
+         function get_browser_info(){
+             var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)\.(\d+)/i) || [];
+             if(/trident/i.test(M[1])){
+                 tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
+                 return {name:'IE',version:(tem[1]||'')};
+             }
+             if(M[1]==='Chrome'){
+                 tem=ua.match(/\bOPR\/(\d+)/)
+                     if(tem!=null)   {return {name:'Opera', version: parseFloat(tem[1] + "." + tem[2])};}
+             }
+             M=M[2]? [M[1], M[2], M[3]]: [navigator.appName, navigator.appVersion, '-?'];
+             if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+             return {
+                 name: M[0],
+                 version: parseFloat(M[1] + "." + M[2])
+             };
+         }
+         function verticalSplit(){
+             var ths = document.getElementsByClassName("rotate-demo");
+             if(ths.length > 0){
+                 for(var i = 0; i < ths.length; i++){
+                     ths[i].innerHTML = ths[i].innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '').split("").join("<br />");
+                 }
+             }
+         }
+         function adaptMargin(){
+             var ths = document.getElementsByClassName("rotate-demo");
+             if(ths.length > 0){
+                 for(var i = 0; i < ths.length; i++){
+                     var th = ths[i];
+                     var marginValue = (th.offsetWidth - 20) / 2;
+                     var margin = (marginValue > 0 ? "-" + marginValue + "px" : "0px");
+                     if(th.style.setAttribute){
+                         th.style.setAttribute("marginLeft", margin);
+                         th.style.setAttribute("marginRight", margin);
+                     } else {
+                         th.setAttribute("style", "margin-left:" + margin + "; margin-right:" + margin);
+                     }
+                 }
+             }
+         }
+         var browserInfo = get_browser_info();
+         switch(browserInfo.name){
+             case "Firefox":
+                 // FF 3.5 starts using 2D Transforms
+                 if(browserInfo.version < 3.5){
+                     verticalSplit();
+                 }
+                 break;
+             case "Opera":
+                 // Opera 11.5 starts using 2D Transforms
+                 if(browserInfo.version < 11.5){
+                     verticalSplit();
+                 }
+                 break;
+             default:
+                 break;
+         }
+        </script>
+    </body>
+</html>
