@@ -32,10 +32,9 @@ function verticalSplit(){
     if(ths.length > 0){
         for(var i = 0; i < ths.length; i++){
             var temp = ths[i].innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-            if(temp.indexOf("<br>") >= 0){
-                temp = temp.split("<br>");
-            } else if(temp.indexOf("<br />") >= 0){
-                temp = temp.split("<br />");
+            temp = temp.replace(/\<[bB][rR]\s{0,1}\\{0,1}\>/g, '##');
+            if(temp.indexOf("##") >= 0){
+                temp = temp.split("##");
             }
             if(typeof temp === "string"){
                 temp = temp.split("").join("<br />");
