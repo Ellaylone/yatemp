@@ -15,13 +15,46 @@ function get_browser_info(){
         version: parseFloat(M[1] + "." + M[2])
     };
 }
-
+if(typeof "test".repeat === "undefined"){
+    String.prototype.repeat = function(count) {
+        if (count < 1) return '';
+        var result = '', pattern = this.valueOf();
+        while (count > 1) {
+            if (count & 1) result += pattern;
+            count >>= 1, pattern += pattern;
+        }
+        return result + pattern;
+    };
+}
 // If browser does not support 2D Transforms - split text and show it one letter at a time
 function verticalSplit(){
     var ths = document.getElementsByClassName("rotate-demo");
     if(ths.length > 0){
         for(var i = 0; i < ths.length; i++){
-            ths[i].innerHTML = ths[i].innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '').split("").join("<br />");
+            var temp = ths[i].innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+            if(temp.indexOf("<br>") >= 0){
+                temp = temp.split("<br>");
+            } else if(temp.indexOf("<br />") >= 0){
+                temp = temp.split("<br />");
+            }
+            if(typeof temp === "string"){
+                temp = temp.split("").join("<br />");
+            } else {
+                if(temp.length > 0){
+                    var cleanTemp = [];
+                    for(var j = 0; j < temp.length; j++){
+                        temp[j] = temp[j].split("");
+                        if(temp[j].length > 0){
+                            for(var k = 0; k < temp[j].length; k++){
+                                cleanTemp[k] = (cleanTemp[k] ? cleanTemp[k] + "&nbsp;" + temp[j][k] : (j != 0 ? "&nbsp;".repeat(j) + temp[j][k] : temp[j][k]));
+                            }
+                        }
+                    }
+                    temp = cleanTemp.join("<br />");
+                }
+            }
+            ths[i].innerHTML = temp;
+            document.write(temp);
         }
     }
 }
@@ -55,10 +88,18 @@ function adjustTh(){
     if(ths.length > 0){
         var thHeight = ths[0].offsetHeight + "px";
         for(var i = 0; i < ths.length; i++){
-            ths[i].setAttribute("style",
-                                "height:" + ths[i].children[0].children[0].offsetWidth + "px;" +
-                                "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
-                               );
+            if(true){
+                var rd = ths[i].getElementsByClassName("rotate-demo")[0];
+                ths[i].setAttribute("style",
+                                    "height:" + rd.offsetWidth + "px;" +
+                                    "width:" + rd.offsetHeight + "px;"
+                                   );
+            } else {
+                ths[i].setAttribute("style",
+                                    "height:" + ths[i].children[0].children[0].offsetWidth + "px;" +
+                                    "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
+                                   );
+            }
 
             // ths[i].children[0].children[0].style.setAttribute("height", thHeight);
         }
