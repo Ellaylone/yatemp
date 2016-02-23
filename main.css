@@ -25,10 +25,18 @@ thead th {
 }
 
 .rotate-90 .rotate-demo {
-    -ms-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
     display: inline-block;
+}
+
+.pull-left {
+    float: left;
+}
+
+.th-part {
+    margin-right: 5px;
 }

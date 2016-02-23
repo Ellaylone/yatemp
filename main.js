@@ -43,18 +43,13 @@ function verticalSplit(){
                 if(temp.length > 0){
                     var cleanTemp = [];
                     for(var j = 0; j < temp.length; j++){
-                        temp[j] = temp[j].split("");
-                        if(temp[j].length > 0){
-                            for(var k = 0; k < temp[j].length; k++){
-                                cleanTemp[k] = (cleanTemp[k] ? cleanTemp[k] + "&nbsp;" + temp[j][k] : (j != 0 ? "&nbsp;".repeat(j) + temp[j][k] : temp[j][k]));
-                            }
-                        }
+                        temp[j] = temp[j].split("").join("<br />");
+                        temp[j] = "<div class='pull-left th-part'>" + temp[j] + "</div>";
                     }
-                    temp = cleanTemp.join("<br />");
+                    temp = temp.join("");
                 }
             }
             ths[i].innerHTML = temp;
-            document.write(temp);
         }
     }
 }
