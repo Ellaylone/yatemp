@@ -49,13 +49,18 @@ function adaptMargin(){
 }
 
 
-// Adjust inner div height for IE7
-function adjustHeight(){
+// Adjust th size
+function adjustTh(){
     var ths = document.getElementsByTagName("th");
     if(ths.length > 0){
         var thHeight = ths[0].offsetHeight + "px";
         for(var i = 0; i < ths.length; i++){
-            ths[i].children[0].children[0].style.setAttribute("height", thHeight);
+            ths[i].setAttribute("style",
+                                "height:" + ths[i].children[0].children[0].offsetWidth + "px;" +
+                                "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
+                               );
+
+            // ths[i].children[0].children[0].style.setAttribute("height", thHeight);
         }
     }
 }
@@ -78,12 +83,13 @@ case "Opera":
     break;
 case "MSIE":
     // IE7 inner div height adjustment
-    if(browserInfo.version == 7){
-        adjustHeight();
-    }
+    // if(browserInfo.version == 7){
+    //     adjustHeight();
+    // }
     break;
 default:
     break;
 }
 
 adaptMargin();
+adjustTh();

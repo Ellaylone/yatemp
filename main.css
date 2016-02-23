@@ -18,10 +18,10 @@ thead th {
 }
 
 .rotate-90 .rotate-demo:before {
-    content:'';
-    padding-top:110%;
-    display:inline-block;
-    vertical-align:middle;
+    /* content:''; */
+    /* padding-top:110%; */
+    /* display:inline-block; */
+    /* vertical-align:middle; */
 }
 
 .rotate-90 .rotate-demo {
