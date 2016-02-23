@@ -135,6 +135,7 @@ case "MSIE":
     if(browserInfo.version != 8){
         adjustments();
     }
+    break;
 default:
     adjustments();
     break;
