@@ -1,0 +1,8 @@
+.rotate-container {
+    margin: 0px auto;
+    position: relative;
+}
+.rotate-demo {
+    text-align: center;
+    zoom: 1;
+}

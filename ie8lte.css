@@ -1,0 +1,10 @@
+.rotate-90 .rotate-demo:before {
+    padding-top:0%;
+}
+.writing-tbrl {
+    writing-mode: tb-rl;
+}
+.rotate-90 {
+    position: relative;
+    padding-top: 0px;
+}
