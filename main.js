@@ -98,7 +98,6 @@ function adjustTh(){
             } else {
                 // IE7 needs adjusting inner div height
                 ths[i].children[0].children[0].style.setAttribute("height", thHeight);
-                ths[i].style.setAttribute("width", thHeight + "px;");
                 ths[i].setAttribute("style",
                                     "height:" + ths[i].children[0].children[0].offsetWidth + "px;" +
                                     "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
@@ -108,6 +107,11 @@ function adjustTh(){
     }
 }
 
+function adjustments(){
+    adaptMargin();
+    adjustTh();
+}
+
 var browserInfo = get_browser_info();
 
 switch(browserInfo.name){
@@ -115,16 +119,22 @@ case "Firefox":
     // FF 3.5 starts using 2D Transforms
     if(browserInfo.version < 3.5){
         verticalSplit();
+    } else {
+        adjustments();
     }
     break;
 case "Opera":
     // Opera 11.5 starts using 2D Transforms
     if(browserInfo.version < 11.5){
         verticalSplit();
+    } else {
+        adjustments();
     }
     break;
+case "MSIE":
+    if(browserInfo.version != 8){
+        adjustments();
+    }
 default:
-    adaptMargin();
-    adjustTh();
     break;
 }
