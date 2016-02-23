@@ -17,13 +17,6 @@ thead th {
     margin: 0px auto;
 }
 
-.rotate-90 .rotate-demo:before {
-    /* content:''; */
-    /* padding-top:110%; */
-    /* display:inline-block; */
-    /* vertical-align:middle; */
-}
-
 .rotate-90 .rotate-demo {
     -ms-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
@@ -38,5 +31,10 @@ thead th {
 }
 
 .th-part {
-    margin-right: 5px;
+    margin-right: 15px;
+    line-height: 15px;
+}
+
+.clear {
+    clear: both;
 }

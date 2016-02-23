@@ -15,6 +15,8 @@ function get_browser_info(){
         version: parseFloat(M[1] + "." + M[2])
     };
 }
+
+// Check if browser supports string repeat
 if(typeof "test".repeat === "undefined"){
     String.prototype.repeat = function(count) {
         if (count < 1) return '';
@@ -26,15 +28,17 @@ if(typeof "test".repeat === "undefined"){
         return result + pattern;
     };
 }
+
 // If browser does not support 2D Transforms - split text and show it one letter at a time
+var brReplace = "##";
 function verticalSplit(){
     var ths = document.getElementsByClassName("rotate-demo");
     if(ths.length > 0){
         for(var i = 0; i < ths.length; i++){
             var temp = ths[i].innerHTML.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-            temp = temp.replace(/\<[bB][rR]\s{0,1}\\{0,1}\>/g, '##');
-            if(temp.indexOf("##") >= 0){
-                temp = temp.split("##");
+            temp = temp.replace(/\<[bB][rR]\s{0,1}\\{0,1}\>/g, brReplace);
+            if(temp.indexOf(brReplace) >= 0){
+                temp = temp.split(brReplace);
             }
             if(typeof temp === "string"){
                 temp = temp.split("").join("<br />");
@@ -48,7 +52,10 @@ function verticalSplit(){
                     temp = temp.join("");
                 }
             }
+            var clear = document.createElement("div");
+            clear.className = "clear";
             ths[i].innerHTML = temp;
+            ths[i].appendChild(clear);
         }
     }
 }
@@ -94,15 +101,12 @@ function adjustTh(){
                                     "width:" + ths[i].children[0].children[0].offsetHeight + "px;"
                                    );
             }
-
-            // ths[i].children[0].children[0].style.setAttribute("height", thHeight);
         }
     }
 }
 
 var browserInfo = get_browser_info();
 
-// Fallback for oldest and weirdest
 switch(browserInfo.name){
 case "Firefox":
     // FF 3.5 starts using 2D Transforms
@@ -116,15 +120,8 @@ case "Opera":
         verticalSplit();
     }
     break;
-case "MSIE":
-    // IE7 inner div height adjustment
-    // if(browserInfo.version == 7){
-    //     adjustHeight();
-    // }
-    break;
 default:
+    adaptMargin();
+    adjustTh();
     break;
 }
-
-adaptMargin();
-adjustTh();
