@@ -136,5 +136,6 @@ case "MSIE":
         adjustments();
     }
 default:
+    adjustments();
     break;
 }
