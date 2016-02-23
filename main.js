@@ -28,19 +28,21 @@ function verticalSplit(){
 
 // In some browsers after rotation th keeps original width
 // Compensate with negative margin
-const LINE_HEIGHT = 20;
+var lineHeight = 20;
 function adaptMargin(){
-    var ths = document.getElementsByClassName("rotate-demo");
-    if(ths.length > 0){
-        for(var i = 0; i < ths.length; i++){
-            var th = ths[i];
-            var marginValue = (th.offsetWidth - LINE_HEIGHT) / 2;
-            var margin = (marginValue > 0 ? "-" + marginValue + "px" : "0px");
-            if(th.style.setAttribute){
-                th.style.setAttribute("marginLeft", margin);
-                th.style.setAttribute("marginRight", margin);
-            } else {
-                th.setAttribute("style", "margin-left:" + margin + "; margin-right:" + margin);
+    if(document.getElementsByClassName){
+        var ths = document.getElementsByClassName("rotate-demo");
+        if(ths.length > 0){
+            for(var i = 0; i < ths.length; i++){
+                var th = ths[i];
+                var marginValue = (th.offsetWidth - lineHeight) / 2;
+                var margin = (marginValue > 0 ? "-" + marginValue + "px" : "0px");
+                if(th.style.setAttribute){
+                    th.style.setAttribute("marginLeft", margin);
+                    th.style.setAttribute("marginRight", margin);
+                } else {
+                    th.setAttribute("style", "margin-left:" + margin + "; margin-right:" + margin);
+                }
             }
         }
     }
